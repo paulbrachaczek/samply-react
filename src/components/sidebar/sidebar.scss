@@ -1,0 +1,78 @@
+.m-sidebar {
+    $p: &;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 390px;
+    align-self: flex-end;
+    border-radius: 2px 0 0 0;
+    background-color: #F0F0F0;
+    box-shadow: 0 0 30px 0 rgba(0,0,0,0.3);
+
+    &_header {
+        position: relative;
+        border-radius: 2px 0 0 0;
+        padding: 0 24px;
+        background-color: #DCDCDC;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        span {
+            color: #646E6E;
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        #{$p}_close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 37px;
+            background-color: #DCDCDC;
+            border: 0;
+            border-left: 1px solid #fff;
+            cursor: pointer;
+            text-indent: -10000em;
+            transition: .3s all;
+
+            svg {
+                position: absolute;
+                height: 18px;
+                width: 18px;
+                top: 50%;
+                left: 50%;
+                color: #646E6E;
+                transform: translate(-50%, -50%);
+            }
+
+            &:hover {
+                background-color: #fff;;
+            }
+        }
+
+
+    }
+    &_title {
+        margin: 0;
+        padding: 0 24px;
+        font-size: 24px;
+        font-weight: 300;
+        line-height: 75px;
+    }
+
+    &_desc {
+        margin: 0;
+        padding: 12px 24px;
+        background-color: #F0F8FC;
+        font-size: 14px;
+        font-style: italic;
+        letter-spacing: 0;
+        line-height: 18px;
+    }
+}

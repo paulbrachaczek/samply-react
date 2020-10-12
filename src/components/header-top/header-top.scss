@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.m-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px;
+    background: $header-top-background;
+}
+
+.a-logo {
+    height: 24px;
+    margin-right: -70px;
+}

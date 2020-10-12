@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap');
+@import 'variables';
+
+html {
+  font-size: 16px;
+  color: white;
+  min-height: 100%;
+}
+body {
+  background-color: #646E6E;
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1rem;
+  color: #646E6E;
+}
+
+.o-main {
+  position: relative;
+  //height: calc100vh;
+  
+  
+}

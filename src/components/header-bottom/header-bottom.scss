@@ -1,0 +1,21 @@
+.m-header-bottom {
+    overflow: hidden;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F0F0F0 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 16px;
+    color: #3C4646;
+
+    &_nav {
+        ul {
+            display: flex;
+            list-style: none;
+
+            li {
+                margin: 0 4px;
+            }
+        }
+    }
+}

@@ -1,0 +1,48 @@
+@import '../../variables';
+
+.a-hbutton {
+    display: inline-lex;
+    height: 24px;
+    align-items: center;
+    justify-content: space-between;
+    background: #646E6E;
+    color: $color-white;
+    margin: 0 2px;
+    padding: 4px 8px;
+    border: 0;
+    line-height: 16px;
+    font-size: 14px;
+    color: #DCDCDC;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all .3s;
+
+    &.no-text {
+        svg {
+            margin-right: 0;
+        }
+    }
+
+    &:hover {
+        background-color: $color-white;
+
+        svg {
+            color: #3C4646;
+        }
+    }
+
+    span {
+        box-sizing: border-box;
+        font-size: 12px;
+        width: 20px;
+        padding: 0 7px;
+        border-radius: 16px;
+        background: #3C4646;
+        color: $color-white;
+    }
+
+    svg {
+        color: #DCDCDC;
+        margin-right: 8px;
+    }
+}
