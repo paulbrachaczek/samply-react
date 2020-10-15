@@ -1,7 +1,7 @@
 import React from 'react';
 import './sidebar.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faCog, faImage, faImages } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCog, faImage, faImages, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import SidebarElement from '../sidebar-element/sidebar-element';
 
 const Sidebar = ()=> {
@@ -9,12 +9,12 @@ const Sidebar = ()=> {
         {
             id: 1,
             title: 'short text',
-            icon: '123' 
+            icon: 'ABCDE' 
         },
         {
             id: 2,
             title: 'long text',
-            icon: 'lorem ipsum dolor amet'
+            icon: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae dapibus diam. Nullam efficitur sem turpis, id posuere dui ultrices hendrerit.'
         },
         {
             id: 3,
@@ -30,7 +30,7 @@ const Sidebar = ()=> {
         {
             id: 5,
             title: 'number',
-            icon: 123
+            icon: '123'
         }
     ];
     
@@ -51,13 +51,21 @@ const Sidebar = ()=> {
                 You can reorder the elements by dragging them.
             </p>
             <div className="m-sidebar_elements">
-                {elements[0].title}
                 <ul className="m-sidebar_list">
-                    
                     {elements.map((element) => (
-                        <SidebarElement key={element.id} element={element}/>
+                        <li key={element.id}><SidebarElement element={element}/></li>
                     ))}
                 </ul>
+            </div>
+            <div className="m-sidebar_help">
+                <span className="m-sidebar_help_icon">
+                        <FontAwesomeIcon icon={faInfoCircle}/>
+                </span>
+                <p>
+                    <b>Missing something?</b>
+                    Contact us to let us know which element types 
+                    you would like to use in your personas.
+                </p>
             </div>
         </aside>
 )};
