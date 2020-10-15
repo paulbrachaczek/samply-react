@@ -13,11 +13,7 @@
     transition: all .3s;
 
     &:hover {
-        background-color: $color-white;
-
-        svg {
-            color: #3C4646;
-        }
+        color: #3C4646;
     }
 
     svg {

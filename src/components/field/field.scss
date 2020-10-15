@@ -1,0 +1,78 @@
+.m-field {
+    margin: 16px 0 0;
+    padding: 7px 12px 0;
+    position: relative;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    min-height: 56px;
+
+    label {
+        color: #B1B6B6;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: 15px;
+        display: block;
+        text-transform: uppercase;
+        padding-right: 30px;
+    }
+
+    input[type="text"] {
+        margin: 4px 0 0;
+        outline: none;
+        border: 0;
+        color: #3C4646;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 22px;
+        width: 100%;
+
+        &:focus {
+            border: 0;
+        }
+    }
+
+    textarea {
+        margin: 4px 0 0;
+        outline: none;
+        border: 0;
+        color: #3C4646;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 22px;
+        width: 100%;
+        min-height: 150px;
+        resize: horizontal;
+
+        &:focus {
+            border: 0;
+        }
+    }
+
+    figure {
+        display: table;
+        margin: 8px 0 0;
+        border-radius: 2px;
+        img {
+            width: auto;
+        }
+    }
+
+    &_button {
+        position: absolute;
+        top: 9px;
+        right: 12px;
+        width: 12px;
+        height: 12px;
+        border: 0;
+        font-size: 12px;
+        background: transparent;
+        color: #B1B6B6;
+        cursor: pointer;
+        transition: 0.3s all;
+
+        &:hover {
+            color: #3C4646;
+        }
+    }
+}

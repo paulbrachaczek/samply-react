@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor() {
     super()
 
+
     this.state = {
       persona: null,
       thin: [
@@ -47,17 +48,30 @@ class App extends React.Component {
 
   api = new Api();
 
-  async fetchPersona () {
+  fetchPersona () {
     return this.api.getPersona(1);
   }
 
-  componentDidMount() {
-    this.fetchPersona().then(data=>{
-      this.setState({persona: data.data});
+  fetchFields () {
+    return this.api.getFields(1);
+  }
 
-      console.log(this.state.persona);
+  componentDidMount() {
+    this.fetchPersona().then(persona => {
+      this.setState({persona: persona.data});
     });
 
+    this.fetchFields().then(fields => {
+      this.setState({wide: fields.data});
+    })
+  }
+
+  removeItem(_id, _column) {
+    this.setState({[_column]: this.state[_column].filter(item => item.id !== _id)});
+  }
+
+  updateName(_name) {
+    this.setState({name: _name})
   }
   
   render() {
@@ -66,14 +80,16 @@ class App extends React.Component {
         <Header/>
         <main className="o-main">
           {this.state.persona ? <PersonaHeader persona={this.state.persona}/> : 'loading'}
-          <div class="m-fields-grid">
+          <div className="m-fields-grid">
             <div className="m-fields -thin">
               {this.state.thin.map((field) => (
-                <Field fkey={field.id} field={field}/>  
+                <Field key={field.id} removeMe={()=>this.removeItem(field.id, 'thin')} field={field}/>  
               ))}
             </div>
             <div className="m-fields -wide">
-            dudu
+              {this.state.wide.map((field) => (
+                <Field key={field.id} removeMe={()=>this.removeItem(field.id, 'wide')} field={field}/>  
+              ))}
             </div>
           </div>
         </main>

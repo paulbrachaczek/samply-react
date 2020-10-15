@@ -1,0 +1,26 @@
+.m-persona-header {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -16px -8px;
+    flex: 0 0 100%;
+
+    > * {
+        box-sizing: content-box;
+        padding: 0 8px;
+    }
+
+    &_figure {
+        margin-top: 16px;
+        flex: 0 0 56px;
+    }
+
+    &_short-name {
+        flex: 0 0 156px;
+
+    }
+
+    &_name {
+        flex-basis: 0;
+        flex-grow: 1;
+    }
+}
