@@ -5,6 +5,9 @@ import './App.css';
 import PersonaHeader from './components/persona-header/persona-header.component';
 import Api from './service/api';
 import Field from './components/field/field';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { FieldsContainer } from './components/fields-container/fields-container';
 
 class App extends React.Component {
   constructor() {
@@ -73,27 +76,26 @@ class App extends React.Component {
   updateName(_name) {
     this.setState({name: _name})
   }
+
+  
   
   render() {
+    
     return (
       <div className="App">
+      <DndProvider backend={HTML5Backend}>
         <Header/>
         <main className="o-main">
-          {this.state.persona ? <PersonaHeader persona={this.state.persona}/> : 'loading'}
-          <div className="m-fields-grid">
-            <div className="m-fields -thin">
-              {this.state.thin.map((field) => (
-                <Field key={field.id} removeMe={()=>this.removeItem(field.id, 'thin')} field={field}/>  
-              ))}
+            
+            {this.state.persona ? <PersonaHeader persona={this.state.persona}/> : 'loading'}
+            <div className="m-fields-grid">
+              <FieldsContainer fields={this.state.thin} size="thin"/>
+              <FieldsContainer fields={this.state.wide} />
             </div>
-            <div className="m-fields -wide">
-              {this.state.wide.map((field) => (
-                <Field key={field.id} removeMe={()=>this.removeItem(field.id, 'wide')} field={field}/>  
-              ))}
-            </div>
-          </div>
+            <Sidebar />
+          
         </main>
-        <Sidebar />
+      </DndProvider>
       </div>
     )
   }

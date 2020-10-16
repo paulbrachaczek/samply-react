@@ -38,23 +38,7 @@ body {
   display: flex;
   margin: 0 -8px;
   flex-wrap: wrap;
-}
-
-.m-fields {
-  display: flex;
-  flex-direction: column;
-  margin: 16px 0 0;
-  padding: 0 8px;
-
-  &.-thin {
-    width: 216px;
-    flex-wrap: 0 0 200px;
-  }
-
-  &.-wide {
-    flex-grow: 1;
-    flex-basis: 1;
-  }
+  align-items: flex-start;
 }
 
 figure img {

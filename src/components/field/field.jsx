@@ -1,13 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faTrash}  from '@fortawesome/free-solid-svg-icons';
-import './field.scss';
+import './field.scss';  
 
 const Field = ({field, editable = true, removeMe}) => {
     const {title, data, field_type} = field;
     let error = false;
     let icon = {faCog};
-    let editMode = false;
+    const [editMode, setEditMode] = useState(false);
 
     let input;
     if(field_type === 'short_text') {
@@ -23,10 +23,10 @@ const Field = ({field, editable = true, removeMe}) => {
             <label>{title}</label>
             {input}
             {!editMode ? 
-                <FontAwesomeIcon onClick={()=> console.log(editMode=true)} icon={faCog}/> : 
-                <FontAwesomeIcon icon={faTrash}/> 
-            }
-            {editable ? <button onClick={removeMe} className="m-field_button"><FontAwesomeIcon icon={faTrash}/></button> : null}
+                <button onClick={()=> setEditMode(true)} className="m-field_button"><FontAwesomeIcon icon={faCog}/></button>  
+                : 
+                <button onClick={()=> removeMe} className="m-field_button"><FontAwesomeIcon icon={faTrash}/></button> 
+            }    
         </div>
     );
 };

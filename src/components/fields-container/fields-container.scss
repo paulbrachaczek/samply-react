@@ -1,0 +1,39 @@
+.m-fields {
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0 0;
+    padding: 8px 8px 70px;
+    position: relative;
+
+    &.-thin {
+        width: 216px;
+        flex-wrap: 0 0 200px;
+    }
+
+    &.-wide {
+        flex: 1 auto;
+    }
+
+    &.-dragging, &.-holdingOn {
+        &:after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            height: 40px;
+            border: 2px dashed #CCC;
+        }
+    }
+
+    &.-holdingOn {
+        &:after {
+            content: 'Drop here';
+            text-align: center;
+            line-height: 40px;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            background-color: rgba($color: #FFF, $alpha: .6);
+        }
+    }
+}

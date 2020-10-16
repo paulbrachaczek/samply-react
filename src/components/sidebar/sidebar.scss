@@ -4,18 +4,19 @@
     position: fixed;
     top: 116px;
     right: 0;
-    min-height: calc(100vh - 116px);
-    overflow: auto;
+    bottom: 0;
+    overflow: scroll;
     width: 390px;
-    padding: 0 0 134px;
+    padding: 0;
     align-self: flex-end;
     border-radius: 2px 0 0 0;
     background-color: #F0F0F0;
     box-shadow: 0 0 30px 0 rgba(0,0,0,0.3);
 
     &_container {
-        position: sticky;
-        top: 0;
+        position: relative;
+        min-height: calc(100vh - 116px);
+        padding: 0 0 134px;
     }
 
     &_header {
