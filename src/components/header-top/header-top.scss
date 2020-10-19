@@ -6,6 +6,12 @@
     justify-content: space-between;
     padding: 6px;
     background: $header-top-background;
+    color: #B1B6B6;
+
+    &_left {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .a-logo {

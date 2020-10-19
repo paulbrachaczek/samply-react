@@ -24,9 +24,24 @@ export default class Api {
     return this.init().get(`/${id}`);
   };
 
+  updatePersona = (id) => {
+    return this.init().put(`/${id}`);
+  };
+
   getFields = (id) => {
     return this.init().get(`/${id}/fields`)
   }
 
+  deleteField = (personaId, fieldId) => {
+    return this.init().delete(`/${personaId}/fields/${fieldId}`);
+  }
+
+  updateField = (personaId, fieldId, fieldContent) => {
+    return this.init().put(`/${personaId}/fields/${fieldId}`, fieldContent);
+  }
+
+  createField = (personaId, fieldContent) => {
+    return this.init().post(`/${personaId}/fields`, fieldContent);
+  }
   
 }

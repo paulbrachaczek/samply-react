@@ -3,15 +3,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './sidebar-element.scss';
 import {ItemTypes} from '../../ItemTypes';
 import { useDrag } from 'react-dnd';
+import { connect } from 'react-redux';
+import { setWideField} from '../../redux/wideFields/wide-fields.actions'; 
+import { setThinField } from '../../redux/thinFields/thin-fields.actions';
 
-const SidebarElement = ({element}) => {
-    const {title, icon} = element;
+const SidebarElement = ({element, setWideField, setThinField}) => {
+    const {title, icon, type} = element;
     const [{ isDragging }, drag] = useDrag({
         item: {title, type: ItemTypes.BOX },
         end: (item, monitor) => {
             const dropResult = monitor.getDropResult();
             if (item && dropResult) {
-                alert(`You dropped ${item.title} into ${dropResult.name}!`);
+                if(dropResult.name === 'thin') {
+                    setThinField(type);
+                }
+                else {
+                    setWideField(type);
+                }
+                
+                //alert(`You dropped ${item.name} into ${dropResult.name}!`);
             }
         },
         collect: (monitor) => ({
@@ -33,4 +43,9 @@ const SidebarElement = ({element}) => {
     )
 };
 
-export default SidebarElement;
+const mapDispachToProps = dispatch => ({
+    setWideField: type => dispatch(setWideField(type)),
+    setThinField: type => dispatch(setThinField(type))
+});
+
+export default connect(null, mapDispachToProps)(SidebarElement);

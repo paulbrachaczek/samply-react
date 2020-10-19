@@ -14,19 +14,24 @@ html {
   color: white;
   min-height: 100%;
 }
+
 body {
   background-color: #646E6E;
   margin: 0;
-  padding: 0;
+  padding: 0 390px 0 0;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1rem;
   color: #646E6E;
   min-height: 100%;
 }
 
+input[type="text"], input[type="number"], textarea {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+ 
 .o-main {
   position: relative;
-  margin: 116px auto 20px 100px;
+  margin: 116px auto 20px auto;
   background: #F0F0F0;
   max-width: 664px;
   width: 90%;

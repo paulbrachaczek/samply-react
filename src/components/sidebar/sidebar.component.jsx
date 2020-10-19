@@ -9,28 +9,33 @@ const Sidebar = ()=> {
         {
             id: 1,
             title: 'short text',
-            icon: 'ABCDE' 
+            icon: 'ABCDE',
+            type: 'short_text' 
         },
         {
             id: 2,
             title: 'long text',
-            icon: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae dapibus diam. Nullam efficitur sem turpis, id posuere dui ultrices hendrerit.'
+            icon: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vitae dapibus diam. Nullam efficitur sem turpis, id posuere dui ultrices hendrerit.',
+            type: 'long_text'
         },
         {
             id: 3,
             title: 'image',
-            icon: faImage
+            icon: faImage,
+            type: 'image'
 
         },
         {
             id: 4,
             title: 'images gallery',
-            icon: faImages
+            icon: faImages,
+            type: 'image_gallery'
         },
         {
             id: 5,
             title: 'number',
-            icon: '123'
+            icon: '123',
+            type: 'number'
         }
     ];
     

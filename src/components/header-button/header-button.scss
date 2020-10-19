@@ -16,8 +16,9 @@
     cursor: pointer;
     border-radius: 2px;
     transition: all .3s;
+    outline: 0;
 
-    &.no-text {
+    &.-no-text {
         svg {
             margin-right: 0;
         }
@@ -25,8 +26,9 @@
 
     &:hover {
         background-color: $color-white;
-
-        svg {
+        color: #3C4646;
+        
+        svg, span {
             color: #3C4646;
         }
     }

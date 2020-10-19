@@ -1,0 +1,53 @@
+.m-header-field {
+    margin: 16px 0 0;
+    padding: 7px 12px 0;
+    position: relative;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    min-height: 56px;
+
+    &.-error {
+        input[type="text"] {
+            border: 1px dashed red;
+        }
+    }
+
+    
+
+    label {
+        color: #B1B6B6;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 0;
+        line-height: 15px;
+        display: block;
+        text-transform: uppercase;
+        padding-right: 30px;
+    }
+
+    input[type="text"], p{
+        display: none;
+        margin: 4px 0 0;
+        outline: none;
+        border: 0;
+        color: #3C4646;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 22px;
+        width: 100%;
+    }
+
+    p {
+        display: block;
+    }
+
+    &.-edit {
+        input[type="text"] {
+            display: block;
+        }
+
+        p {
+            display: none;
+        }
+    }
+}

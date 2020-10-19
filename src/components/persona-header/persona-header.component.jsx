@@ -1,42 +1,49 @@
 import React from 'react';
-import Field from '../field/field';
+import HeaderField from '../header-field/header-field';
 import './persona-header.scss';
+import {connect} from 'react-redux';
 
-const PersonaHeader = ({persona}) => {
-    const {name} = persona;
-    const headerData = [
-        {
-            "id": 1,
-            "title": "Persona name",
-            "field_type": "short_text",
-            "data": name,
-            "column_id": null,
-            "prev_id": {},
-            "next_id": null
-        },
-        {
-            "id": 2,
-            "title": "Short name",
-            "field_type": "short_text",
-            "data": name.slice(0,3),
-            "column_id": null,
-            "prev_id": {},
-            "next_id": null
+class PersonaHeader extends React.Component {
+    
+    constructor() {
+        super();
+
+        this.state = {
+            headerData: [
+                {
+                    "id": 1,
+                    "title": "Persona name",
+                    "field_type": "name"
+                },
+                {
+                    "id": 2,
+                    "title": "Short name",
+                    "field_type": "initials"
+                }
+            ]
         }
-    ];
+    }
 
-    return(
-    <header className="m-persona-header">
-        <figure  className="m-persona-header_figure">
-            <img alt={name} src="../images/persona.png"/>
-        </figure>
-        <div className="m-persona-header_name">
-           <Field field={headerData[0]} editable={false} />
-        </div>
-        <div className="m-persona-header_short-name">
-        <Field field={headerData[1]} editable={false} />
-        </div>
-    </header>
-)};
+    render() {
+        const {currentPersona} = this.props;
 
-export default PersonaHeader;
+        return(
+            <header className="m-persona-header">
+                <figure  className="m-persona-header_figure">
+                    <img alt={this.props.currentPersona.name} src="../images/persona.png"/>
+                </figure>
+                <div className="m-persona-header_name">
+                    {this.state.headerData[0] ? <HeaderField field={this.state.headerData[0]} data={currentPersona.name} /> : null}
+                </div>
+                <div className="m-persona-header_short-name">
+                {this.state.headerData[1] ? <HeaderField field={this.state.headerData[1]} data={currentPersona.initials} /> : null}
+                </div> 
+            </header>
+    )}
+}
+
+const mapStateToProps = ({persona}) => ({
+    currentPersona: persona.currentPersona
+});
+
+export default connect(mapStateToProps)(PersonaHeader);

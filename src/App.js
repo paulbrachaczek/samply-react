@@ -4,45 +4,60 @@ import Sidebar from './components/sidebar/sidebar.component';
 import './App.css';
 import PersonaHeader from './components/persona-header/persona-header.component';
 import Api from './service/api';
-import Field from './components/field/field';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { FieldsContainer } from './components/fields-container/fields-container';
+import {connect} from 'react-redux';
+import { setPersona } from './redux/persona/persona.actions';
+import { setWideFields } from './redux/wideFields/wide-fields.actions';
+import { setThinFields } from './redux/thinFields/thin-fields.actions';
 
 class App extends React.Component {
   constructor() {
     super()
 
-
     this.state = {
-      persona: null,
+      personaId: 1,
       thin: [
         {
-          "id": 1,
+          "id": 101,
           "title": "Image",
           "field_type": "Image",
           "data": "http://www.fillmurray.com/200/200",
           "column_id": 1,
           "prev_id": {},
-          "next_id": 2
+          "next_id": 102
         },
         {
-          "id": 2,
+          "id": 102,
           "title": "Age",
           "field_type": "short_text",
           "data": "37",
           "column_id": 1,
-          "prev_id": 1,
-          "next_id": 3
+          "prev_id": 101,
+          "next_id": 103
         },
         {
-          "id": 3,
+          "id": 103,
           "title": "Gender",
           "field_type": "short_text",
           "data": "Not defined",
           "column_id": 1,
-          "prev_id": 2,
+          "prev_id": 102,
           "next_id": {}
+        },
+        {
+            "id": 104,
+            "title": "Images mood",
+            "field_type": "image_gallery",
+            "data": [
+              {image: null},
+              {image: "http://www.fillmurray.com/200/200"},
+              {image: "http://www.fillmurray.com/200/200"}
+            ],
+            "column_id": 1,
+            "prev_id": 103,
+            "next_id": {}
         }
       ],
       wide: []
@@ -51,46 +66,42 @@ class App extends React.Component {
 
   api = new Api();
 
-  fetchPersona () {
-    return this.api.getPersona(1);
+  async fetchPersona () {
+    const {setPersona} = this.props;
+    const {personaId} = this.state;
+    const {data} = await this.api.getPersona(personaId)
+
+    setPersona(data);
   }
 
-  fetchFields () {
-    return this.api.getFields(1);
+  async fetchFields () {
+    const {setWideFields} = this.props;
+    const {personaId} = this.state;
+    const {data} = await this.api.getFields(personaId);
+    
+
+    setWideFields(data);
   }
 
   componentDidMount() {
-    this.fetchPersona().then(persona => {
-      this.setState({persona: persona.data});
-    });
-
-    this.fetchFields().then(fields => {
-      this.setState({wide: fields.data});
-    })
+    const {setThinFields} = this.props;
+    
+    this.fetchPersona();
+    this.fetchFields();
+    setThinFields(this.state.thin);
   }
-
-  removeItem(_id, _column) {
-    this.setState({[_column]: this.state[_column].filter(item => item.id !== _id)});
-  }
-
-  updateName(_name) {
-    this.setState({name: _name})
-  }
-
-  
   
   render() {
-    
+    const {currentPersona, wideFields, thinFields} = this.props;
     return (
       <div className="App">
       <DndProvider backend={HTML5Backend}>
-        <Header/>
-        <main className="o-main">
-            
-            {this.state.persona ? <PersonaHeader persona={this.state.persona}/> : 'loading'}
+        <Header />
+        <main className="o-main"> 
+            {currentPersona ? <PersonaHeader /> : 'loading..'}
             <div className="m-fields-grid">
-              <FieldsContainer fields={this.state.thin} size="thin"/>
-              <FieldsContainer fields={this.state.wide} />
+              {thinFields ? <FieldsContainer fields={thinFields} size="thin"/> : <p>loading...</p>}
+              {wideFields ? <FieldsContainer fields={wideFields} /> : <p>loading fields..</p>}
             </div>
             <Sidebar />
           
@@ -101,4 +112,16 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = ({persona, wide, thin}) => ({
+  currentPersona: persona.currentPersona,
+  wideFields: wide.wideFields,
+  thinFields: thin.thinFields
+});
+
+const mapDispachToProps = dispatch => ({
+  setPersona: persona => dispatch(setPersona(persona)),
+  setWideFields: fields => dispatch(setWideFields(fields)),
+  setThinFields: fields => dispatch(setThinFields(fields))
+});
+
+export default connect(mapStateToProps, mapDispachToProps)(App);
