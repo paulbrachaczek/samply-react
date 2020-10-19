@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import { deleteThinField } from '../../redux/thinFields/thin-fields.actions';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes.js';
+import Api, {api} from '../../service/api'
 
 const Field = ({field, editable = true, deleteWideField, size, deleteThinField, index, moveField}) => {
     const {id, title, data, field_type} = field;
@@ -14,11 +15,13 @@ const Field = ({field, editable = true, deleteWideField, size, deleteThinField, 
     const [editMode, setEditMode] = useState(false);
     const [error, setError] = useState(false);
     const deleteField = (_id) => {
+        
         if(size === 'wide') {
             deleteWideField(id);
         } else if(size === 'thin') {
             deleteThinField(id);
         }
+        console.log('api.deleteField(1, id');
     };
     const ref = useRef(null);
     const [, drop] = useDrop({
@@ -58,14 +61,21 @@ const Field = ({field, editable = true, deleteWideField, size, deleteThinField, 
             isDragging: monitor.isDragging(),
         }),
     });
+    const updateField = (_field, _value) => {
+        const field = _field;
+        field.data = _value;
+        console.log(`api.updateField(field.id, field) field: ${field}`);
+    };
+    const api = new Api();
+
     drag(drop(ref));
 
     if(field_type === 'short_text') {
-        input = <input defaultValue={data}  onChange={(e) => (!e.target.value.length) && !editable ? setError(true): setError(false)} type="text"/>; 
+        input = <input defaultValue={data} onBlur={(e)=>updateField(field, e.target.value)}  onChange={(e) => (!e.target.value.length) && !editable ? setError(true): setError(false)} type="text"/>; 
     } else if(field_type === 'long_text') {
-        input = <textarea>{data}</textarea>; 
+        input = <textarea defaultValue={data} onBlur={(e)=>updateField(field, e.target.value)}></textarea>; 
     } else if(field_type === 'number') {
-        input = <input defaultValue={data}  type="number"/>; 
+        input = <input defaultValue={data} onBlur={(e)=>updateField(field, e.target.value)}  type="number"/>; 
     } else if(field_type === 'image_gallery') {
         input = data.map((img, index)=> img.image ? <figure key={index}><img src={img.image} alt=''/></figure> : <figure key={index} className="-empty"></figure>)
     } else {
@@ -75,9 +85,10 @@ const Field = ({field, editable = true, deleteWideField, size, deleteThinField, 
     return(
         <div ref={ref} className={`m-field ${error ?'-error' : ''}`}>
             <label>{title}</label>
+            {field_type === 'long_text' ? <img style={{maxWidth: '224px', width: '100%'}} src="../images/textarea-navi.png"/> : null}
             {input}
             {editable ? 
-                <button onClick={()=> !editMode ? setEditMode(true) : deleteField(id)} className="m-field_button"><FontAwesomeIcon icon={!editMode ? faCog : faTrash}/></button>  
+                <button onClick={()=> !editMode ? setEditMode(true) : deleteField()} className="m-field_button"><FontAwesomeIcon icon={!editMode ? faCog : faTrash}/></button>  
                 : 
                 null 
             }    

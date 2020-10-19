@@ -9,7 +9,7 @@ const HeaderField = ({field, currentPersona, setPersonaName, setPersonaInitials}
     const defaultVal = field_type === 'name' ? currentPersona.name : currentPersona.initials;
     const [value, setValue] = useState(defaultVal);
     const [editMode, setEditMode] = useState(false);
-    const inputRef = useRef(null)
+    const iRef = useRef(null)
     const setAction = (_val) => {
         const val = _val;
 
@@ -39,14 +39,15 @@ const HeaderField = ({field, currentPersona, setPersonaName, setPersonaInitials}
     }
     const showInput = () => {
         setEditMode(true);
-        inputRef.current.focus()
+        setTimeout(()=>iRef.current.focus(), 0);
+        
     };
     
     return(
         <div className={`m-header-field ${error ?'-error' : ''} ${editMode?'-edit':null}`}>
             <label>{title}</label>
             <p onClick={()=>showInput()}>{field_type === 'name' ? currentPersona.name : currentPersona.initials}</p>
-            <input ref={inputRef} value={value} onBlur={(e)=> error ? null : setAction(e.target.value)} onChange={(e) => newVal(e.target.value)} type="text"/>
+            <input ref={iRef} value={value} onBlur={(e)=> error ? null : setAction(e.target.value)} onChange={(e) => newVal(e.target.value)} type="text"/>
            
         </div>
     );
