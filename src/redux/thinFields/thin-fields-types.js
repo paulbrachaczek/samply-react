@@ -1,0 +1,5 @@
+export const ThinFieldsActionTypes = {
+    SET_THIN_FIELDS: 'SET_THIN_FIELDS',
+    SET_THIN_FIELD: 'SET_THIN_FIELD',
+    DELETE_THIN_FIELD: 'DELETE_THIN_FIELD'
+};

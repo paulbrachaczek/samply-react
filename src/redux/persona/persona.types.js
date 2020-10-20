@@ -1,0 +1,5 @@
+export const PersonaActionTypes = {
+    SET_PERSONA: 'SET_PERSONA',
+    SET_PERSONA_NAME: 'SET_PERSONA_NAME',
+    SET_PERSONA_INITIALS: 'SET_PERSONA_INITIALS'
+};
