@@ -28,13 +28,16 @@ export const FieldsContainer = ({fields, size = 'wide'}) => {
     }, [fields]);
 
     const moveField = useCallback((dragIndex, hoverIndex) => {
-        const dragCard = fields[dragIndex];
+        const dragField = fields[dragIndex];
         setFieldsState(update(fields, {
             $splice: [
                 [dragIndex, 1],
-                [hoverIndex, 0, dragCard],
+                [hoverIndex, 0, dragField],
             ],
         }));
+        //const newFields = [...fieldsState];
+        
+        //console.log(newFields);
     }, [fields]);
     
     return (

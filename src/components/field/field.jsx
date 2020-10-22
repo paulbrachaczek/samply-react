@@ -1,15 +1,15 @@
 import React, {useState, useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faTrash}  from '@fortawesome/free-solid-svg-icons';
+import { faCog, faTrash, faImage, faPlusCircle}  from '@fortawesome/free-solid-svg-icons';
 import './field.scss';  
-import {deleteWideField} from '../../redux/wideFields/wide-fields.actions';
+import {deleteWideField, reorderWideField} from '../../redux/wideFields/wide-fields.actions';
 import {connect} from 'react-redux';
 import { deleteThinField } from '../../redux/thinFields/thin-fields.actions';
 import { useDrag, useDrop } from 'react-dnd';
 import { ItemTypes } from '../../ItemTypes.js';
-import Api, {api} from '../../service/api'
+import Api from '../../service/api'
 
-const Field = ({field, editable = true, deleteWideField, size, deleteThinField, index, moveField}) => {
+const Field = ({field, editable = true, deleteWideField, size, deleteThinField, index, moveField, reorderWideField}) => {
     const {id, title, data, field_type} = field;
     let input;
     const [editMode, setEditMode] = useState(false);
@@ -51,6 +51,7 @@ const Field = ({field, editable = true, deleteWideField, size, deleteThinField, 
             }
             
             moveField(dragIndex, hoverIndex);
+            reorderWideField([dragIndex, hoverIndex]);
            
             item.index = hoverIndex;
         },
@@ -64,7 +65,7 @@ const Field = ({field, editable = true, deleteWideField, size, deleteThinField, 
     const updateField = (_field, _value) => {
         const field = _field;
         field.data = _value;
-        console.log(`api.updateField(field.id, field) field: ${field}`);
+        console.log(`api.updateField(field.id, field)`);
     };
     const api = new Api();
 
@@ -77,7 +78,17 @@ const Field = ({field, editable = true, deleteWideField, size, deleteThinField, 
     } else if(field_type === 'number') {
         input = <input defaultValue={data} onBlur={(e)=>updateField(field, e.target.value)}  type="number"/>; 
     } else if(field_type === 'image_gallery') {
-        input = data.map((img, index)=> img.image ? <figure key={index}><img src={img.image} alt=''/></figure> : <figure key={index} className="-empty"></figure>)
+        input = data.map((img, index) => 
+        img.image ? 
+        (<figure key={index}><img src={img.image} alt=''/></figure>)
+         : 
+        (   
+            <figure key={index} className="-empty">
+                <input type="file" />
+                <FontAwesomeIcon icon={faImage} />
+                <FontAwesomeIcon icon={faPlusCircle} />
+            </figure>
+        ))
     } else {
         input = <figure><img src={data} alt={title}/></figure>
     };
@@ -98,7 +109,8 @@ const Field = ({field, editable = true, deleteWideField, size, deleteThinField, 
 
 const mapDispachToProps = dispatch => ({
     deleteWideField: id => dispatch(deleteWideField(id)),
-    deleteThinField: id => dispatch(deleteThinField(id))  
+    deleteThinField: id => dispatch(deleteThinField(id)),
+    reorderWideField: id => dispatch(reorderWideField(id))  
 });
 
 export default connect(null, mapDispachToProps)(Field);

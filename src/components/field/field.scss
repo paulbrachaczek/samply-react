@@ -61,9 +61,37 @@
         }
 
         &.-empty {
+            position: relative;
             height: 56px;
             background: #F0F0F0;
             border: 1px dashed #DCDCDC;
+        
+            svg {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                font-size: 1.8rem;
+                transform: translate(-50%,-50%);
+                color: #DCDCDC;
+
+                & + svg {
+                    top: 60%;
+                    left: 60%;
+                    color: #999;
+                    font-size: .7rem;
+                }
+            }
+            
+
+            input[type="file"] {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+                z-index: 10;
+            }
         }
     }
 

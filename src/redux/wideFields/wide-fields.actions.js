@@ -14,3 +14,8 @@ export const setWideField = field => ({
     type: WideFieldsActionTypes.SET_FIELD,
     payload: field
 });
+
+export const reorderWideField = field => ({
+    type: WideFieldsActionTypes.REORDER_FIELDS,
+    payload: field
+});

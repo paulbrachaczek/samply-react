@@ -1,5 +1,40 @@
 import { WideFieldsActionTypes } from './wide-fields-types';
 
+const moveInArray = (arr, _from, _to)=> {
+
+	// const newArr = [...arr];
+	// let item = arr.splice(_from, 1);
+
+	// newArr.splice(_to, 0, item[0]);
+    // return newArr;
+    if (_to >= arr.length) {
+        var k = _to - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(_to, 0, arr.splice(_from, 1)[0]);
+
+    arr.map((item,index) => {
+        item.id = index;
+        index === 0 ? item.prev_id = null : item.prev_id = index-1;
+        index === arr.length - 1 ? item.next_id = null : item.next_id = index+1; 
+    });
+
+    return arr; 
+};
+
+const updateArrayIds = (arr) => {
+    arr.map( (item,index) => {
+        item.id = index;
+        index === 0 ? item.prev_id = null : item.prev_id = index-1;
+        index === arr.length - 1 ? item.next_id = null : item.next_id = index+1; 
+    
+    });
+    return arr;
+};
+
+
 const INITIAL_STATE = {
     wideFields: null
 }
@@ -50,6 +85,15 @@ const wideFieldsReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state, 
                 wideFields: state.wideFields.filter(item => item.id !== action.payload)
+            }
+        case WideFieldsActionTypes.REORDER_FIELDS: 
+            const newArr = [...state.wideFields];
+            moveInArray(newArr, action.payload[0], action.payload[1]);
+            const updatedArray = updateArrayIds(newArr);
+            console.log(`api request column ${updatedArray}`);
+            
+            return {
+                ...state
             }
         default:
             return state;
